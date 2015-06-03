@@ -6,8 +6,34 @@ using System.IO;
 using tk2dEditor.SpriteCollectionEditor;
 using Spine;
 
+namespace SpineAutoImport
+{
+
 public class SpineAutoImport
 {
+	// --------------------------------------------------------------------------------------------
+	public static List<T> GetAssetsRecursively<T>(string path)
+		where T: Object
+	{
+		List<T> assets = new List<T>();
+		foreach(string filePath in System.IO.Directory.GetFiles(path))
+		{
+			string adjustedPath = filePath.Replace('\\', '/');
+			System.IO.FileInfo fileInfo = new System.IO.FileInfo(adjustedPath);
+			if(fileInfo.Extension.ToLower() == ".meta")
+				continue;
+
+			T asset = AssetDatabase.LoadAssetAtPath(adjustedPath, typeof(T)) as T;
+			if(asset != null) assets.Add(asset);
+		}
+		foreach(string folderPath in System.IO.Directory.GetDirectories(path))
+		{
+			assets.AddRange(GetAssetsRecursively<T>(folderPath.Replace('\\', '/')));
+		}
+
+		return assets;
+	}
+
 	// --------------------------------------------------------------------------------------------
     [MenuItem("Assets/Spine/Import Folder (tk2d)")]
     static void Import_tk2d()
@@ -30,14 +56,14 @@ public class SpineAutoImport
 	    		path = assetDirectory + "/";
 	    	string assetName = new DirectoryInfo(path).Name;
 
-	    	List<TextAsset> textAssets = AssetUtility.GetAssetsRecursively<TextAsset>(path);
+	    	List<TextAsset> textAssets = GetAssetsRecursively<TextAsset>(path);
 	    	if(textAssets.Count != 1)
 	    	{
 	    		Debug.LogError(System.String.Format("Selection must contain exactly 1 skeleton json file (this selection contains {0})", textAssets.Count));
 	    		return;
 	    	}
 
-	    	List<Texture2D> textures = AssetUtility.GetAssetsRecursively<Texture2D>(path);
+	    	List<Texture2D> textures = GetAssetsRecursively<Texture2D>(path);
 	    	if(textures.Count < 1)
 	    	{
 	    		Debug.LogError("Selection doesn't contain any textures");
@@ -296,3 +322,5 @@ public class SpineAutoImport
     	return (Selection.activeObject != null);
     }
 }
+
+} // namespace
