@@ -2,6 +2,10 @@
 
 A simple Unity extension that automates the otherwise-tedious process of importing a Spine rig into a project that uses 2D Toolkit.
 
+Created by **Kickbomb Entertainment**.
+
+[Website](http://kickbomb.us) | [Twitter](https://twitter.com/kickbomb) | [Facebook](https://www.facebook.com/431706723671340) | [Tumblr](http://kickbombentertainment.tumblr.com/) | [YouTube](http://www.youtube.com/channel/UC0Zt4aySrXEaw5SG8x0oHlA) | [GitHub](https://github.com/kickbomb)
+
 # Installation
 
 Create a folder called **SpineAutoImport** in your Unity project's **Assets** folder, and copy the contents of this repository into it.
@@ -17,7 +21,7 @@ If you're already very familiar with Spine, this quick start may be all you need
 5. Right-click the folder in Unity and choose **Spine->Import Folder (tk2d)**.
 6. Appreciate the magic!
 
-Prefer a video walkthrough? [Click here](TBD)!
+Prefer a video walkthrough? [Click here](http://youtu.be/Scz6C1e4icw)!
 
 # Tips
 
