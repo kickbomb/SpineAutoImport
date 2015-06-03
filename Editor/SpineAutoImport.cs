@@ -109,7 +109,8 @@ public class SpineAutoImport
 	    	}
 
 	    	// Apply settings
-	    	atlas.sizeDef.type = (tk2dSpriteCollectionSize.Type)EditorPrefs.GetInt("SpineAutoImport.Size", (int)tk2dSpriteCollectionSize.Type.Explicit);
+	    	atlas.allowMultipleAtlases = EditorPrefs.GetBool("SpineAutoImport.AllowMultipleAtlases", true);
+			atlas.sizeDef.type = (tk2dSpriteCollectionSize.Type)EditorPrefs.GetInt("SpineAutoImport.Size", (int)tk2dSpriteCollectionSize.Type.Explicit);
 	    	if(atlas.sizeDef.type == tk2dSpriteCollectionSize.Type.Explicit)
 	    	{
 		    	atlas.sizeDef.orthoSize = EditorPrefs.GetFloat("SpineAutoImport.OrthoSize", 10.0f);
@@ -285,6 +286,7 @@ public class SpineAutoImport
 	{
 		// Defaults are the same as the tk2dSpriteCollection defaults
 		tk2dSpriteCollectionSize.Type atlasType = (tk2dSpriteCollectionSize.Type)EditorPrefs.GetInt("SpineAutoImport.Size", (int)tk2dSpriteCollectionSize.Type.Explicit);
+		bool multiAtlas = EditorPrefs.GetBool("SpineAutoImport.AllowMultipleAtlases", true);
 		float orthoSize = EditorPrefs.GetFloat("SpineAutoImport.OrthoSize", 10.0f);
 		int targetHeight = EditorPrefs.GetInt("SpineAutoImport.TargetHeight", 640);
 		float pixelsPerMeter = EditorPrefs.GetFloat("SpineAutoImport.PixelsPerMeter", 100);
@@ -294,6 +296,7 @@ public class SpineAutoImport
 			"These settings will be applied to new 2D Toolkit sprite collections created during the import process.",
 			MessageType.Info
 		);
+		multiAtlas = EditorGUILayout.Toggle("Multiple Atlases", multiAtlas);
 		atlasType = (tk2dSpriteCollectionSize.Type)EditorGUILayout.EnumPopup("Size", atlasType);
 		if(atlasType == tk2dSpriteCollectionSize.Type.Explicit)
 		{
@@ -308,6 +311,7 @@ public class SpineAutoImport
 		// Apply changes
 		if(GUI.changed)
 		{
+			EditorPrefs.SetBool("SpineAutoImport.AllowMultipleAtlases", multiAtlas);
 			EditorPrefs.SetInt("SpineAutoImport.Size", (int)atlasType);
 			EditorPrefs.SetFloat("SpineAutoImport.OrthoSize", orthoSize);
 			EditorPrefs.SetInt("SpineAutoImport.TargetHeight", targetHeight);
