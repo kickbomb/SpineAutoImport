@@ -6,6 +6,12 @@ Created by **Kickbomb Entertainment**.
 
 [Website](http://kickbomb.us) | [Twitter](https://twitter.com/kickbomb) | [Facebook](https://www.facebook.com/431706723671340) | [Tumblr](http://kickbombentertainment.tumblr.com/) | [YouTube](http://www.youtube.com/channel/UC0Zt4aySrXEaw5SG8x0oHlA) | [GitHub](https://github.com/kickbomb)
 
+# Prerequisites
+
+You must be running Unity 5.0+, 2D Toolkit 2.5+, and the latest version of the spine-tk2d runtime.
+
+The spine-tk2d runtime was deprecated by Esoteric Software on March 15, 2015. Kickbomb Entertainment maintains a [branch](https://github.com/kickbomb/spine-tk2d) created from the last version of spine-tk2d. This is branch is self-contained: from a blank Unity project, you can simply install Kickbomb's spine-tk2d variant and the latest 2D Toolkit from the Unity Asset Store and you should be good to go.
+
 # Installation
 
 Create a folder called **SpineAutoImport** in your Unity project's **Assets** folder, and copy the contents of this repository into it.
