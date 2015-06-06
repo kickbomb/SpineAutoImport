@@ -35,19 +35,9 @@ Prefer a video walkthrough? [Click here](http://youtu.be/Scz6C1e4icw)!
 * You can import multiple skeletons at once. If the **destination folder** contains more than one skeleton JSON, each one will generate its own tk2dSpriteCollection and SkeletonDataAsset.
 * You can import multiple folders at once by selecting them all, then right-clicking any one and choosing **Spine->Import Folder (tk2d)**.
 * Any images present in the **destination folder** which are not referenced by any imported skeleton will be automatically cleaned up. (Note that the images are *deleted*, so make sure you're importing copies, not your originals!)
-
-# Known Issues
-
-If you re-run the importer on a folder which already contains a tk2dSpriteCollection and/or SkeletonDataAsset, those assets will be *replaced* and will get new asset GUIDs assigned. This will break existing links to those assets. In most cases, however, this is easy to avoid:
-
-* If you update the Spine rig, simply re-export the JSON file over top of the existing one in your Unity project. There's no need to re-run the importer.
-* If you update any of the images attached to the rig, simply replace those images in your Unity project (or update them directly). Provided you only *changed* images (and did not *add* or *remove* any images), there's no need to re-run the importer.
-
-If you update the rig and stop using some images, you can safely ignore them. They'll still hang out in your project and be present in the sprite collection, they just won't be referenced. If you really need to squeeze down your build size, you can manually remove the unused images from the sprite collection and from the project with no ill effects.
-
-If you update the rig and add new images, you can manually add the new images to the existing sprite collection with no ill effects.
-
-I know this kind of sucks for certain workflows. I'll get around to fixing it at some point... or you could always submit a pull request. ;)
+* Changes in the skeleton JSON are automatically applied and do NOT require re-executing the **Spine->Import Folder (tk2d)** command.
+* Changes to existing image files do NOT require re-executing the import command.
+* If you add or remove image files, you SHOULD re-execute the import command. This will update the existing tk2dSpriteCollection in-place, preserving existing references.
 
 # Detailed Usage
 
