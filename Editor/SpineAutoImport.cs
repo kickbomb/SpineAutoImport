@@ -6,7 +6,7 @@ using System.IO;
 using tk2dEditor.SpriteCollectionEditor;
 using Spine;
 
-namespace SpineAutoImport
+namespace Kickbomb
 {
 
 public class SpineAutoImport
@@ -320,10 +320,13 @@ public class SpineAutoImport
 	}
 
 	// --------------------------------------------------------------------------------------------
-    [MenuItem("Assets/Spine/Import Selected (tk2d)", true)]
+    [MenuItem("Assets/Spine/Import Folder (tk2d)", true)]
     static bool ValidateImport_tk2d()
     {
-    	return (Selection.activeObject != null);
+    	if(Selection.activeObject == null) return false;
+		if(!AssetDatabase.IsValidFolder(AssetDatabase.GetAssetPath(Selection.activeObject.GetInstanceID()))) return false;
+
+    	return true;
     }
 }
 
