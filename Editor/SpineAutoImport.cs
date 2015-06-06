@@ -102,9 +102,6 @@ public class SpineAutoImport
 		    		AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(atlasMaterial));
 	    		}
 
-	    		AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(atlas.spriteCollection));
-	    		atlas.spriteCollection = null;
-
 	    		AssetDatabase.Refresh();
 	    	}
 
