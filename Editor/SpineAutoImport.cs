@@ -86,6 +86,8 @@ public class SpineAutoImport
 	    		// Remove existing SpriteCollectionData
 	    		foreach(Material atlasMaterial in atlas.spriteCollection.materials)
 	    		{
+	    			if(atlasMaterial == null) continue;
+
 		    		// Remove the old atlas texture
 		    		Texture atlasTexture = atlasMaterial.mainTexture;
 		    		for(int i = 0; i < textures.Count; i++)
