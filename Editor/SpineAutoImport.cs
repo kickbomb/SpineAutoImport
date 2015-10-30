@@ -135,27 +135,7 @@ public class SpineAutoImport
 		    	StringReader reader = new StringReader(textAssets[0].text);
 		    	Dictionary<string, object> json = Json.Deserialize(reader) as Dictionary<string, object>;
 
-				// Check slot definitions for textures which are directly assigned
-				if(json.ContainsKey("slots"))
-				{
-		    		List<object> slots = json["slots"] as List<object>;
-		    		for(int i = 0; i < slots.Count; i++)
-					{
-		    			Dictionary<string, object> slotData = slots[i] as Dictionary<string, object>;
-		    			string slotName = slotData["name"] as string;
-
-						// Create texture list for this slot if it hasn't been created already
-						if(!attachments.ContainsKey(slotName))
-							attachments.Add(slotName, new List<string>());
-
-		    			// If a texture is directly bound, add it
-						List<string> slotTextures = attachments[slotName];
-		    			if(slotData.ContainsKey("attachment") && !slotTextures.Contains(slotData["attachment"] as string))
-		    				slotTextures.Add(slotData["attachment"] as string);
-					}
-				}
-
-				// Check skin definitions for textures which are indirectly assigned
+				// Check skin definitions for textures which are in use
 				if(json.ContainsKey("skins"))
 				{
 					Dictionary<string, object> skins = json["skins"] as Dictionary<string, object>;
@@ -168,7 +148,9 @@ public class SpineAutoImport
 							Dictionary<string, object> slotTextures = slotAssignment.Value as Dictionary<string, object>;
 							foreach(KeyValuePair<string, object> slotTexture in slotTextures)
 							{
-								string textureName = slotTexture.Key;
+								// The attachment might contain a "path" key which overrides the texture name
+								Dictionary<string, object> properties = slotTexture.Value as Dictionary<string, object>;
+								string textureName = (properties.ContainsKey("path") ? properties["path"] as string : slotTexture.Key);
 								if(!attachments.ContainsKey(slotName))
 									attachments.Add(slotName, new List<string>());
 								if(!attachments[slotName].Contains(textureName))
