@@ -209,6 +209,7 @@ public class SpineAutoImport
 	    		atlasProxy.textureParams[slot].name = name;
 	    		atlasProxy.textureParams[slot].colliderType = tk2dSpriteCollectionDefinition.ColliderType.UserDefined;
 	    		atlasProxy.textureParams[slot].texture = textures[i];
+	    		atlasProxy.textureParams[slot].disableTrimming = true;
 	    	}
 
 	    	// Commit the SpriteCollection
